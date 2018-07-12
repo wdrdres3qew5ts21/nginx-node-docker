@@ -22,9 +22,20 @@ else
   NODE_PORT="${NODE_PORT}"
 fi
 
+# Check LB_PATH variable is exist (Actually If you want to use Static Serving Content you must fill this !!!)
+if [[ -z "${NODE_PORT}" ]]; then
+  LB_PATH="/test/docs"
+else
+  LB_PATH="${LB_PATH}"
+fi
+
 # Map NODE_PORT to Nginx default.conf
 
 sed -i "s/___NODE_PORT___/$NODE_PORT/g" /etc/nginx/conf.d/default.conf
+
+# Map ___LB_PATH___ to NGINX default.conf for using loadbalance in Rancher
+
+sed -i "s/___LB_PATH___/$LB_PATH/g" /etc/nginx/conf.d/default.conf
 
 # Update nginx to match worker_processes to no. of cpu's
 procs=$(cat /proc/cpuinfo |grep processor | wc -l)
