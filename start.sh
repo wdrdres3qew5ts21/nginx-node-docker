@@ -23,7 +23,7 @@ else
 fi
 
 # Check LB_PATH variable is exist (Actually If you want to use Static Serving Content you must fill this !!!)
-if [[ -z "${NODE_PORT}" ]]; then
+if [[ -z "${LB_PATH}" ]]; then
   LB_PATH="/test/docs"
 else
   LB_PATH="${LB_PATH}"
